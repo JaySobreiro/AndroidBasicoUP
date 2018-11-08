@@ -36,8 +36,5 @@ public class DetalhesActivity extends AppCompatActivity {
         txtEmail.setText("E-mail: " + email);
         txtEndereco.setText("Endereço: " + endereco);
 
-
-
-
     }
 }
