@@ -47,6 +47,7 @@ public class ContatoAdapter extends RecyclerView.Adapter {
                 Contato c = ContatoLista.getContato(position);
 
                 Bundle detalhes = new Bundle();
+                detalhes.putInt("index",position);
                 detalhes.putString("nome", c.getNome());
                 detalhes.putString("fone", c.getFone());
                 detalhes.putString("email", c.getEmail());

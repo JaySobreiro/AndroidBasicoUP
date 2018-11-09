@@ -36,4 +36,8 @@ public class ContatoLista {
         listaContatos.add(new Contato("Maria", "99222-8956",
                 "maria@semjoao.com", "Indefinido"));
     }
+
+    public static void deletarContato(int index){
+        listaContatos.remove(index);
+    }
 }
