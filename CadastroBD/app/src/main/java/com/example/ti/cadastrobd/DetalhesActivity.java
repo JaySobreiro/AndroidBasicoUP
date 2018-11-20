@@ -18,6 +18,8 @@ public class DetalhesActivity extends AppCompatActivity {
     private Button btnExcluir;
     private Button btnAlterar ;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +77,23 @@ public class DetalhesActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
 
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                   try {
+                       DisciplinaDAO dao = new DisciplinaDAO(DetalhesActivity.this);
+
+                       boolean result = dao.excluirDisciplina(disciplina.getId());
+
+                       if (result) {
+                           Toast.makeText(DetalhesActivity.this, "Disciplina excluída com sucesso!", Toast.LENGTH_SHORT).show();
+                       } else {
+                           Toast.makeText(DetalhesActivity.this, "Erro ao excluir disciplina...", Toast.LENGTH_SHORT).show();
+                       }
+
+                       startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                   }catch (Exception e){
+                       e.printStackTrace();
+                   }
+
 
                 }
             });

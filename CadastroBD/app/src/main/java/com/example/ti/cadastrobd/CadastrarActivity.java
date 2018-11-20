@@ -28,6 +28,7 @@ public class CadastrarActivity extends AppCompatActivity {
     private String turno;
     private boolean atualizar;
     private String msg;
+    private DisciplinaDAO dao;
 
 
     @Override
@@ -41,6 +42,8 @@ public class CadastrarActivity extends AppCompatActivity {
         edtDias = findViewById(R.id.edtdias);
         btnSalvar = findViewById(R.id.btnSalvar);
         txtTitulo2 = findViewById(R.id.txtTitulo2);
+
+        dao = new DisciplinaDAO(CadastrarActivity.this);
 
         // recebe uma intent
         Intent intent = getIntent();
@@ -86,10 +89,43 @@ public class CadastrarActivity extends AppCompatActivity {
                 if (atualizar) {
 
 
+                    Disciplina edt = new Disciplina(id, nome, professor, turno, dias);
+
+                    try{
+
+                       boolean result;
+
+                       result = dao.atulizarDisciplina(edt);
+
+                       if(result){
+                           msg = "Disciplina atualizada com sucesso!";
+                       }else{
+                           msg = "Erro ao atualizar disciplina...";
+                       }
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+
                 } else {
 
+                    Disciplina d = new Disciplina(0, nome, professor, turno, dias);
 
+                    try {
+                        if (dao.cadastrarDisciplina(d)) {
+                            msg = "Disciplina cadastrada com sucesso!";
+
+                        } else {
+                            msg = "Erro ao cadastrar disciplina!";
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        Toast.makeText(CadastrarActivity.this, "Erro ao conectar...", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
+                Toast.makeText(CadastrarActivity.this, msg , Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
 

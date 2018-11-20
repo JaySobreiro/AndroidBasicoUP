@@ -22,6 +22,32 @@ public class MainActivity extends AppCompatActivity {
         rclDisciplinas = findViewById(R.id.rclDisciplinas);
 
 
+        // se a lista nao está vazia
+        if (ListaDisciplinas.getListaDisciplinas().size() > 0)
+        {
+            // limpar lista:
+            ListaDisciplinas.getListaDisciplinas().clear();
+        }
+
+        // carrega a lista com os dados da tabela 'disciplinas':
+        DisciplinaDAO dao = new DisciplinaDAO(MainActivity.this);
+        dao.getDisciplinas();
+
+        DisciplinasAdapter adapter = new DisciplinasAdapter(
+                ListaDisciplinas.getListaDisciplinas(),
+                MainActivity.this
+        );
+
+        rclDisciplinas.setAdapter(adapter);
+
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(
+                MainActivity.this,
+                LinearLayoutManager.VERTICAL,
+                false
+        );
+
+
+        rclDisciplinas.setLayoutManager(layout);
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
